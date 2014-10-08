@@ -34,5 +34,17 @@ RUN cd /usr/local/; ln -s spark-cassandra-connector-1.1.0-alpha2/ spark-cassandr
 RUN cd /usr/local/spark-cassandra ; sbt/sbt package
 
 RUN /usr/local/cassandra/bin/cassandra -f > /var/log/cassandra.log &
+
+ENV PATH /usr/local/spark/bin:/usr/local/cassandra/bin:/usr/local/sbt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 # install test python program
+COPY trigrams /root/trigrams
+COPY setup.sql /root/setup.sql
+
+RUN cd /root; cassandra ; sleep 15; cqlsh < setup.sql
+
+ENV CLASSPATH /usr/local/spark-cassandra/spark-cassandra-connector-java/target/scala-2.10/spark-cassandra-connector-java_2.10-1.1.0-alpha2.jar 
+ENV SPARK_CLASSPATH /usr/local/spark-cassandra/spark-cassandra-connector-java/target/scala-2.10/spark-cassandra-connector-java_2.10-1.1.0-alpha2.jar 
+
+# RUN echo spark.executor.extraClassPath /usr/local/spark-cassandra/spark-cassandra-connector-java/target/scala-2.10/spark-cassandra-connector-java_2.10-1.1.0-alpha2.jar >> /usr/local/spark/conf/spark-defaults.conf
+RUN echo "spark.cassandra.connector.host 127.0.0.1" >> /usr/local/spark/conf/spark-defaults.conf
 
