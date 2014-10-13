@@ -1,0 +1,14 @@
+
+This project assumes the test trigram data in /root/setup.sql is loaded into the cassandra db.
+
+The Trigram.scala program loads the cassandra table and self joins rows where the first column = the second column.
+
+to build:
+
+cd /root/trigram
+sbt assembly
+
+to run:
+
+spark-submit --class Trigram /root/trigram/target/scala-2.10/trigram-spark-cass-assembly-1.0.jar
+
