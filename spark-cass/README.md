@@ -26,7 +26,7 @@ Trigram scala project:
 see README in trigram on building a scala project to access cassandra tables
 
 More info:
-The docker cmd starts up the cassandra service
+The docker cmd starts up the cassandra service. Spark uses a local cluster connected to a local cassandra cluster via 127.0.0.1
 
 It creates a script /root/spark-cass which is just spark-shell but passes in the appropriate jars 
 
