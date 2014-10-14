@@ -1,4 +1,5 @@
 
+
 This can build a docker image which has:
 ```
 ubuntu:latest(currently 14.04)
@@ -14,6 +15,10 @@ It also does the following:
 Loads test data into the cassandra testkeyspace.trigram table(see /root/setup.sql)
 Starts cassandra on container startup
 ```
+
+# Downloading the image
+You can download the image `docker pull hubt/spark-cass`
+
 
 # Using the interactive shell:
 For simple interactive use, there's a shell script /root/spark-cass which just calls spark-shell with the extra jar files for cassandra added
@@ -47,6 +52,10 @@ to run:
 ```
 spark-submit --class Trigram /root/trigram/target/scala-2.10/trigram-spark-cass-assembly-1.0.jar
 ```
+
+# Building the docker image
+
+If you want to rebuild the docker image, a simple `docker build -t spark-cass-image.` should work. 
 
 More info:
 The docker command starts up a cassandra service, Spark uses a local cluster connected to a local cassandra cluster via 127.0.0.1
